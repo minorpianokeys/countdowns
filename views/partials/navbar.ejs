@@ -1,0 +1,10 @@
+<nav class="nav">
+    <% if(!currentUser) { %> 
+        
+        <a class="btn" href="/login">Login</a>
+        <a href="/register" class="btn">Sign Up</a>
+    <% } else { %> 
+        <a class="btn" href="/index">My Countdowns</a>
+        <a href="/logout" class="btn" >Logout</a>
+    <% } %> 
+</nav>

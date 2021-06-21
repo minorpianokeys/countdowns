@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link href= "/public/assets/styles.css" rel="stylesheet" type="text/css" />
+    <title>Countdowns</title>
+</head>
+<body>
+    
+    <%- include('partials/navbar') %> 
+
+    <h1 class="header">Your Countdowns</h1>
+
+    <main class="main">
+        <a href="/add" class="addBtn"><i class="fas fa-plus"></i></a>
+        <div class="slider">
+            <div class="slides card-container" id="cardContainer">
+
+                <% for(let card of cards) { %>
+
+                    <% const  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                    <% const date = card.date.split('-') %>
+                    <% const day = date[2] %>
+                    <% const month = months[date[1] - 1] %>
+                    <% const year = date[0] %>
+
+                    <div class="card" id="card">
+                        <div class="title-container">
+                            <h3 id="title"><%= card.title %></h3>
+                            <small><%= card.category %></small>
+                        </div>
+                        <div class="image" style="background: url('<%= card.imgUrl %>>') center/contain no-repeat;">
+                        </div>
+                        <div class="date-container">
+                            <p class="date"><%= month %> <%= day %>, <%= year %></p>
+                            <div class="timer" id="timer"></div>
+                        </div>
+                        <div class="card-buttons">
+                            <form action="/index/<%=card._id%>?_method=DELETE" method="POST" class="deleteForm">
+                                <button class="deleteBtn"><i class="fas fa-times"></i></button>
+                            </form> 
+                            <a href="/index/<%= card._id %>/edit" class="editBtn"><i class="far fa-edit"></i></a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    
+
+    <script src="/public/javascript/timer.js"></script>
+    <script src="/public/javascript/fontSize.js"></script>
+</body>
+</html>
